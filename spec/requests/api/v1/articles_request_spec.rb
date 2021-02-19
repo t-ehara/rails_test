@@ -26,7 +26,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     context "指定した id　の記事が存在するとき" do
       let(:article_id) { article.id }
       let(:article) { create(:article) }
-      it "その記事のレコードを取得できる" do
+      fit "その記事のレコードを取得できる" do
         subject
         aggregate_failures "最後まで通過" do
           res = JSON.parse(response.body)
@@ -34,6 +34,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
           expect(res["title"]).to eq article.title
           expect(res["body"]).to eq article.body
           expect(res["updated_at"]).to be_present
+          expect(res["user"]["id"]).to eq article.user.id
           expect(response).to have_http_status(:ok)
           expect(res["user"].keys).to eq ["id", "name", "email"]
         end
