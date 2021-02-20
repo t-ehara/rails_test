@@ -52,12 +52,13 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "POST/api/v1/articles" do
     subject { post(api_v1_articles_path, params: params) }
 
-    before { create(:user) }
-
     context "適切なパラメータが送信された時" do
       let(:params) { attributes_for(:article) }
+      let(:current_user) { create(:user) }
+
       it "記事が作成される" do
         aggregate_failures "最後まで通過" do
+          allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user)
           expect { subject }.to change { Article.count }.by(1)
           res = JSON.parse(response.body)
           expect(res["title"]).to eq params[:title]
@@ -69,7 +70,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     context "適切なパラメータが送信されていない時" do
       let(:params) { attributes_for(:article, title: nil) }
+      let(:current_user) { create(:user) }
+
       it "記事作成に失敗する" do
+        allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user)
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
