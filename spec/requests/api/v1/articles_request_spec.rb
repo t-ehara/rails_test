@@ -48,4 +48,30 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
+
+  describe "POST/api/v1/articles" do
+    subject { post(api_v1_articles_path, params: params) }
+
+    before { create(:user) }
+
+    context "適切なパラメータが送信された時" do
+      let(:params) { attributes_for(:article) }
+      it "記事が作成される" do
+        aggregate_failures "最後まで通過" do
+          expect { subject }.to change { Article.count }.by(1)
+          res = JSON.parse(response.body)
+          expect(res["title"]).to eq params[:title]
+          expect(res["body"]).to eq params[:body]
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
+
+    context "適切なパラメータが送信されていない時" do
+      let(:params) { attributes_for(:article, title: nil) }
+      it "記事作成に失敗する" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+  end
 end
