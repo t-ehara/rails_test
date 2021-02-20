@@ -9,5 +9,18 @@ module Api::V1
       article = Article.find(params[:id])
       render json: article, serializer: Api::V1::ArticleSerializer
     end
+
+    def create
+      user = current_user
+      article = user.articles.new(article_params)
+      article.save!
+      render json: article, serializer: Api::V1::ArticleSerializer
+    end
+
+    private
+
+      def article_params
+        params.permit(:title, :body)
+      end
   end
 end
