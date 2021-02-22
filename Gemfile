@@ -23,9 +23,9 @@ gem "turbolinks", "~> 5"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-gem "devise_token_auth"
-
 gem "active_model_serializers", "~> 0.10.0"
+gem "devise_token_auth"
+gem "rack-cors"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
