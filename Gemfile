@@ -25,7 +25,7 @@ gem "turbolinks", "~> 5"
 # gem 'image_processing', '~> 1.2'
 gem "active_model_serializers", "~> 0.10.0"
 gem "devise_token_auth"
-gem "rack-cors"
+# gem "rack-cors"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
