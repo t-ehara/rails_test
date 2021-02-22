@@ -140,8 +140,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-cors (1.1.1)
-      rack (>= 2.0.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -289,7 +287,6 @@ DEPENDENCIES
   pry-doc
   pry-rails
   puma (~> 4.1)
-  rack-cors
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-erd
   rspec-rails (~> 4.0.2)
