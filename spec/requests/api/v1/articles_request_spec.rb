@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     let!(:article2) { create(:article, updated_at: 2.days.ago, status: 1) }
     let!(:article3) { create(:article, updated_at: 3.days.ago, status: 1) }
 
-    it "ユーザーの一覧が取得できる" do
+    it "公開されている記事一覧を取得できる" do
       subject
       aggregate_failures "最後まで通過" do
         res = JSON.parse(response.body)
@@ -25,18 +25,20 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     context "指定した id　の記事が存在するとき" do
       let(:article_id) { article.id }
-      let(:article) { create(:article, :published) }
-      it "その記事のレコードを取得できる" do
-        subject
-        aggregate_failures "最後まで通過" do
-          res = JSON.parse(response.body)
-          expect(res["id"]).to eq article.id
-          expect(res["title"]).to eq article.title
-          expect(res["body"]).to eq article.body
-          expect(res["updated_at"]).to be_present
-          expect(res["user"]["id"]).to eq article.user.id
-          expect(response).to have_http_status(:ok)
-          expect(res["user"].keys).to eq ["id", "name", "email"]
+      context "上記の記事が公開状態のとき" do
+        let(:article) { create(:article, :published) }
+        it "その記事のレコードを取得できる" do
+          subject
+          aggregate_failures "最後まで通過" do
+            res = JSON.parse(response.body)
+            expect(res["id"]).to eq article.id
+            expect(res["title"]).to eq article.title
+            expect(res["body"]).to eq article.body
+            expect(res["updated_at"]).to be_present
+            expect(res["user"]["id"]).to eq article.user.id
+            expect(response).to have_http_status(:ok)
+            expect(res["user"].keys).to eq ["id", "name", "email"]
+          end
         end
       end
     end
