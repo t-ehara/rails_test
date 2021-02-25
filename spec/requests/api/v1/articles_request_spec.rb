@@ -27,7 +27,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       let(:article_id) { article.id }
       context "上記の記事が公開状態のとき" do
         let(:article) { create(:article, :published) }
-        fit "その記事のレコードを取得できる" do
+        it "その記事のレコードを取得できる" do
           subject
           aggregate_failures "最後まで通過" do
             res = JSON.parse(response.body)
