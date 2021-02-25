@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text
+#  status     :integer          default(0), not null
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -22,5 +23,11 @@ FactoryBot.define do
     title { Faker::Book.title }
     body { Faker::Alphanumeric.alpha(number: 50) }
     user
+    trait :draft do
+      status { 0 }
+    end
+    trait :published do
+      status { 1 }
+    end
   end
 end

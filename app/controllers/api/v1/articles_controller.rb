@@ -3,12 +3,12 @@ module Api::V1
     before_action :authenticate_user!, except: [:show, :index]
 
     def index
-      articles = Article.all.order(updated_at: "DESC")
+      articles = Article.published.order(updated_at: "DESC")
       render json: articles, each_serializer: Api::V1::ArticlesPreviewSerializer
     end
 
     def show
-      article = Article.find(params[:id])
+      article = Article.published.find(params[:id])
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
@@ -32,7 +32,7 @@ module Api::V1
     private
 
       def article_params
-        params.permit(:title, :body)
+        params.permit(:title, :body, :status)
       end
   end
 end
