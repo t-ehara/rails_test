@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Articles::Drafts", type: :request do
   describe "GET/api/v1/articles/drafts" do
-    subject { get(api_v1_articles_draft_path, headers: user_header) }
+    subject { get(api_v1_articles_drafts_path, headers: user_header) }
 
     context "userがログインしていて" do
       let!(:current_user) { create(:user) }
@@ -40,8 +40,8 @@ RSpec.describe "Api::V1::Articles::Drafts", type: :request do
     end
   end
 
-  describe "GET/api/v1/articles/draft/:id" do
-    subject { get(api_v1_articles_path(article.id), headers: user_header) }
+  describe "GET/api/v1/articles/drafts/:id" do
+    subject { get(api_v1_articles_draft_path(article.id), headers: user_header) }
 
     context "userがログインしていて" do
       let!(:current_user) { create(:user) }

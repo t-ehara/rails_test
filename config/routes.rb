@@ -13,8 +13,7 @@ Rails.application.routes.draw do
         registrations: "api/v1/auth/registrations",
       }
       namespace :articles do
-        get "draft", to: "draft#index"
-        get "draft/:id", to: "draft#show"
+        resources :drafts, only: [:index, :show]
       end
       resources :articles
     end
