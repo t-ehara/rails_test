@@ -9,6 +9,7 @@ gem "rails", "~> 6.0.3", ">= 6.0.3.2"
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 gem "puma", "~> 4.1"
+gem "rack-cors"
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -28,6 +29,7 @@ gem "devise_token_auth"
 # gem "rack-cors"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
+gem "config"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
